@@ -61,10 +61,6 @@ const Content = styled.div`
   overflow: hidden;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease-in-out;
-
-  &:hover {
-    transform: scale(1.02);
-  }
 `;
 
 const Poster = styled.img`
@@ -96,6 +92,7 @@ const Tagline = styled.p`
 const Details = styled.div`
   margin: 15px 0;
   display: flex;
+  justify-content: flex-end;
   gap: 15px;
   font-size: 16px;
   color: #ddd;
@@ -103,6 +100,7 @@ const Details = styled.div`
 
 const Genres = styled.div`
   display: flex;
+  justify-content: center;
   gap: 10px;
   margin: 15px 0;
 `;
@@ -121,4 +119,5 @@ const Overview = styled.p`
   line-height: 1.6;
   color: #ccc;
   margin-top: 10px;
+  word-break: keep-all;
 `;
