@@ -1,31 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import MovieDetailData from '../assets/data/movieDetailData.json';
+import { useFetch } from '../hooks/useFetch';
+
+// import MovieDetailData from '../assets/data/movieDetailData.json';
 
 const MovieDetail = () => {
-  const [movie] = useState(MovieDetailData);
+  const movieId = useParams().movieId;
+  const { movies, loading, error } = useFetch(`/movie/${movieId}?language=ko`);
+  console.log(movieId);
+  // onClick : Url만 바뀌는거고 렌더링은 X
+  // useFetch : API 요청(=데이터를 받아오기)을 위한 함수지만,
+  // 필요한 정보(예를 들어, URL+@의 것)는 알아서 가져와야 함.
+  // 부모-자식 관계의 경우는 Props 사용,
+  // 관련 없는 컴포넌트는 useParams 사용
+  // ** 결론 : MovieDetail은 useParams 사용하여 URL 속에 "id" 값 받아와서
+  // API 요청할 때 매개변수에 담는다. => id값으로 원하는 데이터를 찾는다
+
+  if (Object.keys(movies).length === 0 || loading) return;
+  // movies의 키값이 0 일때 (= 빈 객체 일때, 데이터가 없을 때) 돌아가, 아니면 다음 함수 실행
 
   return (
-    <Container backdrop={movie.backdrop_path}>
+    <Container backdrop={movies.backdrop_path}>
       <Content>
         <Poster
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
+          src={`https://image.tmdb.org/t/p/w500${movies.poster_path}`}
+          alt={movies.title}
         />
         <MovieInfo>
-          <Title>{movie.title}</Title>
-          <Tagline>{movie.tagline}</Tagline>
+          <Title>{movies.title}</Title>
+          <Tagline>{movies.tagline}</Tagline>
           <Details>
-            <span>📅 {movie.release_date}</span>
-            <span>⏳ {movie.runtime}분</span>
-            <span>⭐ {movie.vote_average.toFixed(1)} / 10</span>
+            <span>📅 {movies.release_date}</span>
+            <span>⏳ {movies.runtime}분</span>
+            <span>⭐ {movies.vote_average.toFixed(1)} / 10</span>
           </Details>
           <Genres>
-            {movie.genres.map((genre) => (
+            {movies.genres.map((genre) => (
               <GenreBadge key={genre.id}>{genre.name}</GenreBadge>
             ))}
           </Genres>
-          <Overview>{movie.overview}</Overview>
+          <Overview>{movies.overview}</Overview>
         </MovieInfo>
       </Content>
     </Container>
