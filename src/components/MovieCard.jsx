@@ -26,7 +26,7 @@ const MovieCard = ({ movie }) => {
 export default MovieCard;
 
 const CardContainer = styled.section`
-  width: calc(100% / 4.4);
+  width: 100%;
   height: 300px;
   display: flex;
   flex-direction: column;

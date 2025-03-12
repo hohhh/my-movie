@@ -24,6 +24,7 @@ export const useFetch = (url) => {
           params: {
             // 공통 파라미터
             language: 'ko',
+            credits: 'true',
           },
         });
 
