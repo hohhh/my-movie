@@ -1,20 +1,20 @@
 /* CUSTOM HOOK */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 const ACCESS_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
 const BASE_URL = `${import.meta.env.VITE_TMDB_API_URL}`;
 
-export const useFetch = (url, queryObject=JSON.stringify({})) => {
+export const useFetch = (url, queryObject={}) => {
   // url을 매개변수로 넣음으로써 원하는 url로 변경 가능
   const [movies, setMovies] = useState([]); // 기본값: 로컬 JSON 데이터 -> 빈 배열
   const [loading, setLoading] = useState(true); // 로딩 상태 추가
   const [error, setError] = useState(null); // 에러 상태 추가
-  
+  const memoizedQuery = useMemo(() => queryObject, [JSON.stringify(queryObject)]);
 
   useEffect(() => {
     const fetchMovies = async () => {
       const queries = new URLSearchParams({
-        ...JSON.parse(queryObject),
+        ...memoizedQuery,
         language:'ko-KR'
       });
 
@@ -52,7 +52,7 @@ export const useFetch = (url, queryObject=JSON.stringify({})) => {
       }
     };
     fetchMovies();
-  }, [queryObject]);
+  }, [memoizedQuery]);
   return { movies, loading, error };
   // return 을 해줘야 데이터가 useFetch 쓰이는 곳에 저장되고 사용할 수 있다
 };

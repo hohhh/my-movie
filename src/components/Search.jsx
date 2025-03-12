@@ -7,9 +7,9 @@ const Search = ({ onSearch }) => {
   const [search, setSearch] = useState('');
   const [searchKeywordParams] = useSearchParams();
   const searchKeyword = searchKeywordParams.get('query');
-  const { movies, loading, error } = useFetch(`/search/movie`, JSON.stringify({
+  const { movies, loading, error } = useFetch(`/search/movie`, {
     query: searchKeyword
-  }));
+  });
 
 
   useEffect(()=>{
