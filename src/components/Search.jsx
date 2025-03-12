@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useFetch } from '../hooks/useFetch';
+import MovieListContainer from './MovieListContainer';
 
 const Search = ({ onSearch }) => {
   const [search, setSearch] = useState('');
+  const [searchKeywordParams] = useSearchParams();
+  const searchKeyword = searchKeywordParams.get('query');
+  const { movies, loading, error } = useFetch(`/search/movie`, JSON.stringify({
+    query: searchKeyword
+  }));
+
+
+  useEffect(()=>{
+  },[searchKeyword]);
 
   // 입력값 업데이트
   const onChangeSearch = (e) => {
@@ -16,15 +28,9 @@ const Search = ({ onSearch }) => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={search}
-        onChange={onChangeSearch}
-        onKeyPress={handleKeyPress} // 엔터 키 감지
-        placeholder="영화 찾기"
-      />
-    </div>
+    <MovieListContainer movies={movies}
+      loading={loading}
+      error={error}></MovieListContainer>
   );
 };
 
