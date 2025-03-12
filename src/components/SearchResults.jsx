@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Search from './Search';
-import useFetchMovies from '../hooks/useFetchMovies'; // ✅ 커스텀 훅 사용
+// import useFetchMovies from '../hooks/useFetchMovies'; // ✅ 커스텀 훅 사용
 
 const SearchResults = () => {
   const [query, setQuery] = useState('');
@@ -8,6 +8,10 @@ const SearchResults = () => {
     `/search/movie?query=${query}`,
     false,
   );
+
+  useEffect(()=>{
+    console.log(query)
+  },[query]);
 
   return (
     <div>

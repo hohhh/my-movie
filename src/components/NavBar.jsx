@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDebounce } from '../hooks/useDebounce';
 
 const NavBar = () => {
   const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 500);
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(debouncedSearch.trim()!==''){
+      navigate(`/search?query=${debouncedSearch}`);
+    }
+  },[debouncedSearch])
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
