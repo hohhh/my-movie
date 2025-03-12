@@ -49,7 +49,7 @@ const MovieDetail = () => {
 
 export default MovieDetail;
 
-// ✅ 스타일드 컴포넌트 적용
+// 스타일드 컴포넌트 적용
 const Container = styled.section`
   width: 100%;
   min-height: 100vh;
