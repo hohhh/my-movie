@@ -6,7 +6,7 @@ import styled from 'styled-components';
 // props 받아올 때 한 번에 가져와서, 필요한 것만 "key.value"로 지정
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
-  const goToDetail = () => navigate(`detail/${movie.id}`);
+  const goToDetail = () => navigate(`/detail/${movie.id}`);
   return (
     // 정적일 때는 Link , (데이터를 다루거나 하는) 동적인 상황에는 RouterHook 중에 useNavigate 사용
     <CardContainer onClick={goToDetail}>

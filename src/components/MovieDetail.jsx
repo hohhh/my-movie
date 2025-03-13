@@ -7,7 +7,7 @@ import { useFetch } from '../hooks/useFetch';
 
 const MovieDetail = () => {
   const movieId = useParams().movieId;
-  const { movies, loading, error } = useFetch(`/movie/${movieId}?language=ko`);
+  const { movies, loading, error } = useFetch(`/movie/${movieId}`);
   // onClick : Url만 바뀌는거고 렌더링은 X
   // useFetch : API 요청(=데이터를 받아오기)을 위한 함수지만,
   // 필요한 정보(예를 들어, URL+@의 것)는 알아서 가져와야 함.
