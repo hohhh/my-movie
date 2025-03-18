@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useFetch } from '../hooks/useFetch';
-
+const BASE_URL = `${import.meta.env.VITE_TMDB_API_URL}`;
 // import MovieDetailData from '../assets/data/movieDetailData.json';
 
 const MovieDetail = () => {
   const movieId = useParams().movieId;
-  const { movies, loading, error } = useFetch(`/movie/${movieId}`);
+  const [movies, setMovies] = useState([]);
   // onClick : Url만 바뀌는거고 렌더링은 X
-  // useFetch : API 요청(=데이터를 받아오기)을 위한 함수지만,
-  // 필요한 정보(예를 들어, URL+@의 것)는 알아서 가져와야 함.
-  // 부모-자식 관계의 경우는 Props 사용,
-  // 관련 없는 컴포넌트는 useParams 사용
   // ** 결론 : MovieDetail은 useParams 사용하여 URL 속에 "id" 값 받아와서
   // API 요청할 때 매개변수에 담는다. => id값으로 원하는 데이터를 찾는다
-
-  if (Object.keys(movies).length === 0 || loading) return;
+  useEffect(() => {
+    async function fetchMovieData() {
+      const response = await fetch(`${BASE_URL}/movie/${movieId}?language=ko`, {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
+        },
+      });
+      const data = await response.json();
+      setMovies(data);
+    }
+    fetchMovieData();
+  }, []);
+  if (Object.keys(movies).length === 0) return;
   // movies의 키값이 0 일때 (= 빈 객체 일때, 데이터가 없을 때) 돌아가, 아니면 다음 함수 실행
 
   return (

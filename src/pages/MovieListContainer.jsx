@@ -2,24 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import MovieCard from '../components/MovieCard';
 
-const MovieListContainer = ({ movies, loading, error }) => {
+// eslint-disable-next-line react/prop-types
+const MovieListContainer = ({ movies }) => {
   return (
     <Container>
-      {loading && <Message>🎬 영화 데이터를 불러오는 중...</Message>}
-      {error && <Message>❌ {error}</Message>}
-      {!loading && !error && (
-        <GridContainer>
-          {Array.isArray(movies) ? (
-            <></>
-          ) : (
-            movies.results
-              .filter((el) => el.adult === false) // ✅ 성인 영화 제외
-              .map((movie, index) => (
-                <MovieCard key={movie.id || index} movie={movie} />
-              ))
-          )}
-        </GridContainer>
-      )}
+      <GridContainer>
+        {Array.isArray(movies) ? (
+          <></>
+        ) : (
+          // eslint-disable-next-line react/prop-types
+          movies.results
+            // eslint-disable-next-line react/prop-types
+            .filter((el) => el.adult === false) // ✅ 성인 영화 제외
+            .map((movie, index) => (
+              <MovieCard key={movie.id || index} movie={movie} />
+            ))
+        )}
+      </GridContainer>
     </Container>
   );
 };
@@ -37,12 +36,12 @@ const Container = styled.div`
 `;
 
 /* ✅ 로딩 & 에러 메시지 */
-const Message = styled.p`
-  font-size: 18px;
-  text-align: center;
-  margin-top: 20px;
-  color: #ff4a4a;
-`;
+// const Message = styled.p`
+//   font-size: 18px;
+//   text-align: center;
+//   margin-top: 20px;
+//   color: #ff4a4a;
+// `;
 
 /* ✅ 영화 카드 그리드 컨테이너 */
 const GridContainer = styled.div`

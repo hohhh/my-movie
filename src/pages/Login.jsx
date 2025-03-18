@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../supabase/auth/useAuth'; // ✅ 이메일 로그인
-import { useOAuth } from '../../supabase/auth/useOauthAuth'; // ✅ 카카오, 구글 로그인
 import styled from 'styled-components';
+import { useSupabase } from '../supabase';
 
 const Login = () => {
-  const { login, logout } = useAuth(); // ✅ 로그인/로그아웃 함수 가져오기
-  const { loginWithKakao, loginWithGoogle } = useOAuth(); // ✅ 소셜 로그인
   const navigate = useNavigate();
+  const { login, loginWithGoogle, loginWithKakao } = useSupabase();
 
   // ✅ 상태 관리
   const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoggedOut, setIsLoggedOut] = useState(false); // ✅ 로그아웃 상태
 
@@ -25,8 +22,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setError('');
-
     try {
       const userInfo = await login({
         email: form.email,
@@ -35,23 +30,9 @@ const Login = () => {
 
       if (userInfo?.user) {
         navigate('/'); // ✅ 로그인 성공 시 홈으로 이동
-      } else {
-        setError('이메일 또는 비밀번호가 올바르지 않습니다.');
       }
-    } catch (err) {
-      setError('로그인 중 오류가 발생했습니다.');
     } finally {
       setIsSubmitting(false);
-    }
-  };
-
-  // ✅ 로그아웃 핸들러 (useEffect 활용)
-  const handleLogout = async () => {
-    try {
-      await logout();
-      setIsLoggedOut(true);
-    } catch (err) {
-      console.error('❌ 로그아웃 중 오류 발생:', err);
     }
   };
 
@@ -65,16 +46,10 @@ const Login = () => {
 
   // ✅ 소셜 로그인 핸들러
   const handleSocialLogin = async (provider) => {
-    setError('');
-
-    try {
-      if (provider === 'kakao') {
-        await loginWithKakao();
-      } else if (provider === 'google') {
-        await loginWithGoogle();
-      }
-    } catch (err) {
-      setError('소셜 로그인 중 오류가 발생했습니다.');
+    if (provider === 'kakao') {
+      await loginWithKakao();
+    } else if (provider === 'google') {
+      await loginWithGoogle();
     }
   };
 

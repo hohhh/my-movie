@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useAuth } from '../supabase/auth/useAuth'; // ✅ 유저 인증 정보 가져오기
+import { useAuth } from './supabase/auth/useAuth'; // ✅ 유저 인증 정보 가져오기
 import Layout from './components/Layout'; // ✅ Layout 추가
 import Home from './pages/Home';
 import Login from './pages/Login';

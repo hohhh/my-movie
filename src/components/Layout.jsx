@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useAuth } from '../../supabase/auth/useAuth'; // ✅ 유저 인증 정보 가져오기
+import { useAuth } from '../supabase/auth/useAuth';
 import NavBar from './NavBar';
 
 const Layout = () => {

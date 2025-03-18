@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAuth } from '../../supabase/auth/useAuth';
 import HomeIcon from '@mui/icons-material/Home';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,11 +8,12 @@ import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import { useSupabase } from '../supabase';
 
 const NavBar = () => {
   const [search, setSearch] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
-  const { getUserInfo, logout } = useAuth();
+  const { getUserInfo, logout } = useSupabase();
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 

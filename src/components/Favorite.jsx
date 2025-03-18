@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../supabase/auth/useAuth';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSupabase } from '../supabase';
 
 const Favorite = () => {
-  const { getUserInfo } = useAuth();
+  const { getUserInfo } = useSupabase();
   const [user, setUser] = useState(null);
   const [favoriteMovies, setFavoriteMovies] = useState([]); // ✅ 찜한 영화 목록 (임시 데이터)
   const navigate = useNavigate();

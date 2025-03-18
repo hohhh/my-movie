@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { SupabaseProvider } from '../supabase/context/index.jsx';
+import { SupabaseProvider } from './supabase/index.js';
 import './index.css';
 import App from './App.jsx';
 

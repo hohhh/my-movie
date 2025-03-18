@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../supabase/auth/useAuth'; // ✅ useAuth로 변경
 import styled from 'styled-components';
+import { useSupabase } from '../supabase';
 
 const Join = () => {
-  const { signUp } = useAuth(); // ✅ Supabase 인증 훅 가져오기
+  const { signUp } = useSupabase(); // ✅ Supabase 인증 훅 가져오기
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
