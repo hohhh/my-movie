@@ -4,18 +4,21 @@ import { useState, useEffect, useMemo } from 'react';
 const ACCESS_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
 const BASE_URL = `${import.meta.env.VITE_TMDB_API_URL}`;
 
-export const useFetch = (url, queryObject={}) => {
+export const useFetch = (url, queryObject = {}) => {
   // url을 매개변수로 넣음으로써 원하는 url로 변경 가능
   const [movies, setMovies] = useState([]); // 기본값: 로컬 JSON 데이터 -> 빈 배열
   const [loading, setLoading] = useState(true); // 로딩 상태 추가
   const [error, setError] = useState(null); // 에러 상태 추가
-  const memoizedQuery = useMemo(() => queryObject, [JSON.stringify(queryObject)]);
+  const memoizedQuery = useMemo(
+    () => queryObject,
+    [JSON.stringify(queryObject)],
+  );
 
   useEffect(() => {
     const fetchMovies = async () => {
       const queries = new URLSearchParams({
         ...memoizedQuery,
-        language:'ko-KR'
+        language: 'ko-KR',
       });
 
       try {
@@ -32,14 +35,14 @@ export const useFetch = (url, queryObject={}) => {
             credits: 'true',
           },
         });
-  
+
         // console.log(response);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
+
         const data = await response.json();
-  
+
         if (!data) {
           throw new Error('No movie data found');
         }

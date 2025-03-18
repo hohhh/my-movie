@@ -13,8 +13,8 @@
   --font-black: 900;
 
   /* 색상 변수 */
-  --color-background: #f8f9fa;
-  --color-text: #212529;
+  --color-background: #222;
+  --color-text: #222;
 }
 
 /* 전체 박스 모델 통일 */

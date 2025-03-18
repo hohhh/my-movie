@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MovieCard from './MovieCard';
+import MovieCard from '../components/MovieCard';
 
 const MovieListContainer = ({ movies, loading, error }) => {
   return (
@@ -9,11 +9,15 @@ const MovieListContainer = ({ movies, loading, error }) => {
       {error && <Message>❌ {error}</Message>}
       {!loading && !error && (
         <GridContainer>
-          {Array.isArray(movies) ?<></>: movies.results
-            .filter((el) => el.adult === false) // ✅ 성인 영화 제외
-            .map((movie, index) => (
-              <MovieCard key={movie.id || index} movie={movie} />
-            ))}
+          {Array.isArray(movies) ? (
+            <></>
+          ) : (
+            movies.results
+              .filter((el) => el.adult === false) // ✅ 성인 영화 제외
+              .map((movie, index) => (
+                <MovieCard key={movie.id || index} movie={movie} />
+              ))
+          )}
         </GridContainer>
       )}
     </Container>
@@ -60,7 +64,5 @@ const GridContainer = styled.div`
     ); /* ✅ 모바일에서는 작은 카드 */
   }
 `;
-
-
 
 export default MovieListContainer;

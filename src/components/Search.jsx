@@ -1,19 +1,17 @@
 import React, { use, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
-import MovieListContainer from './MovieListContainer';
+import MovieListContainer from '../pages/MovieListContainer';
 
 const Search = ({ onSearch }) => {
   const [search, setSearch] = useState('');
   const [searchKeywordParams] = useSearchParams();
   const searchKeyword = searchKeywordParams.get('query');
   const { movies, loading, error } = useFetch(`/search/movie`, {
-    query: searchKeyword
+    query: searchKeyword,
   });
 
-
-  useEffect(()=>{
-  },[searchKeyword]);
+  useEffect(() => {}, [searchKeyword]);
 
   // 입력값 업데이트
   const onChangeSearch = (e) => {
@@ -28,9 +26,11 @@ const Search = ({ onSearch }) => {
   };
 
   return (
-    <MovieListContainer movies={movies}
+    <MovieListContainer
+      movies={movies}
       loading={loading}
-      error={error}></MovieListContainer>
+      error={error}
+    ></MovieListContainer>
   );
 };
 
