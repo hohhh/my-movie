@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useAuth } from './supabase/auth/useAuth'; // ✅ 유저 인증 정보 가져오기
 import Layout from './components/Layout'; // ✅ Layout 추가
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -11,17 +10,6 @@ import MovieDetail from './pages/MovieDetail';
 import Favorite from './components/Favorite';
 
 const App = () => {
-  const { getUserInfo } = useAuth();
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userInfo = await getUserInfo();
-      setUser(userInfo?.user || null);
-    };
-    fetchUser();
-  }, []);
-
   return (
     <>
       <Routes>
@@ -32,7 +20,7 @@ const App = () => {
           <Route path="search" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/favorite" element={<Favorite user={user} />} />
+          <Route path="/favorite" element={<Favorite />} />
         </Route>
       </Routes>
     </>

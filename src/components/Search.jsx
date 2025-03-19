@@ -11,7 +11,7 @@ const Search = () => {
   useEffect(() => {
     async function fetchMovieData() {
       const response = await fetch(
-        `${BASE_URL}/search/movie?language=ko?query=${searchKeyword}`,
+        `${BASE_URL}/search/movie?query=${searchKeyword}&language=ko-KR`,
         {
           method: 'GET',
           headers: {

@@ -10,21 +10,22 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSupabase } from '../supabase';
 
+//😎수정필요!!!!!!!! context api 를 사용하세요. (useContext) 😎
 const NavBar = () => {
   const [search, setSearch] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
-  const { getUserInfo, logout } = useSupabase();
+  const { logout } = useSupabase();
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // ✅ 로그인 상태 가져오기 (최적화)
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userInfo = await getUserInfo();
-      setUser(userInfo?.user || null);
-    };
-    fetchUser();
-  }, []);
+  // // ✅ 로그인 상태 가져오기 (최적화)
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const userInfo = await getUserInfo();
+  //     setUser(userInfo?.user || null);
+  //   };
+  //   fetchUser();
+  // }, []);
 
   // ✅ 로그인 후 즉시 반영되도록 함
   useEffect(() => {
@@ -59,6 +60,7 @@ const NavBar = () => {
   // ✅ 검색어 입력 핸들러
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
+    //여기에 debounce, navigate() 추가
   };
 
   // ✅ 검색어 제출 핸들러

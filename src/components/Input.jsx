@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// eslint-disable-next-line react/prop-types
 const Input = ({ type = 'text', name, value, onChange, placeholder }) => {
   return (
     <StyledInput

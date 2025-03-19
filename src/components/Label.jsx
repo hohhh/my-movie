@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// eslint-disable-next-line react/prop-types
 const Label = ({ htmlFor, text }) => {
   return <StyledLabel htmlFor={htmlFor}>{text}</StyledLabel>;
 };

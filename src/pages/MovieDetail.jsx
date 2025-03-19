@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-const BASE_URL = `${import.meta.env.VITE_TMDB_API_URL}`;
 // import MovieDetailData from '../assets/data/movieDetailData.json';
 
 const MovieDetail = () => {
@@ -12,13 +11,16 @@ const MovieDetail = () => {
   // API 요청할 때 매개변수에 담는다. => id값으로 원하는 데이터를 찾는다
   useEffect(() => {
     async function fetchMovieData() {
-      const response = await fetch(`${BASE_URL}/movie/${movieId}?language=ko`, {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
+      const response = await fetch(
+        `${import.meta.env.VITE_TMDB_API_URL}/movie/${movieId}?language=ko`,
+        {
+          method: 'GET',
+          headers: {
+            accept: 'application/json',
+            Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
+          },
         },
-      });
+      );
       const data = await response.json();
       setMovies(data);
     }
